@@ -10,5 +10,5 @@ Repo là bài chuẩn bị tài liệu và bài tập áp dụng trong buổi h�
 
 ## 2. Hình thức:
 
-- Mỗi một branch là một buổi học
+- Mỗi một branch là một lĩnh vực kiến thức
 - Bài chuẩn bị được cập nhật và bổ sung theo từng ngày
