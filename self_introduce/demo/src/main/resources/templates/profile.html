@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Hồ sơ - ' + ${profile.fullName}">Hồ sơ cá nhân</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER: Chữ trước, Avatar sau (bên phải) -->
+    <header class="profile-header">
+        <div class="profile-info">
+            <h1 th:text="${profile.fullName}">Nguyễn Văn An</h1>
+            <p class="job-title" th:text="${profile.jobTitle}">Backend Developer</p>
+
+            <div class="contact">
+                <span>📧 <span th:text="'Email: ' + ${profile.email}">email</span></span>
+                <span>📱 <span th:text="'SĐT: ' + ${profile.phone}">phone</span></span>
+                <span>📍 <span th:text="'Địa chỉ: ' + ${profile.address}">address</span></span>
+            </div>
+        </div>
+
+        <img th:src="${profile.avatarUrl}" alt="Avatar" class="avatar">
+    </header>
+
+    <!-- ABOUT -->
+    <section class="card">
+        <h2>👤 Giới thiệu</h2>
+        <p th:text="${profile.bio}">Nội dung giới thiệu...</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="card">
+        <h2>💻 Kỹ năng</h2>
+        <ul class="tags">
+            <li class="tag" th:each="skill : ${profile.skills}" th:text="${skill}">Java</li>
+        </ul>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="card">
+        <h2>🎓 Học vấn</h2>
+        <div class="timeline-item" th:each="edu : ${profile.educations}">
+            <h3 th:text="'Học sinh trường: ' + ${edu.school}">Trường</h3>
+            <p>
+                <strong th:text="'Ngành học: ' + ${edu.major}">Ngành</strong> —
+                <em th:text="'Khóa: ' + ${edu.period}">Khóa</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="card">
+        <h2>💼 Kinh nghiệm</h2>
+        <div class="timeline-item" th:each="exp : ${profile.experiences}">
+            <h3 th:text="'Vị trí công việc: ' + ${exp.position}">Vị trí</h3>
+            <p>
+                <strong th:text="'Công ty: ' + ${exp.company}">Công ty</strong> —
+                <em th:text="'Thời gian: ' + ${exp.period}">Thời gian</em>
+            </p>
+            <p th:text="'Mô tả công việc: ' + ${exp.description}">Mô tả...</p>
+        </div>
+    </section>
+
+    <!-- HOBBIES -->
+    <section class="card">
+        <h2>🎯 Sở thích</h2>
+        <ul class="hobbies">
+            <li th:each="hobby : ${profile.hobbies}" th:text="${hobby}">Sở thích</li>
+        </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 <span th:text="${profile.fullName}">Tên</span> — Made with ❤️ using Spring Boot</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
