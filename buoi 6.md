@@ -1372,16 +1372,7 @@ public class UserController {
 
 **Minh họa mô hình MVC:**
 
-```
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│ MODEL │ │ CONTROLLER │ │ VIEW │
-│ (Dữ liệu) │◄───▶│ (Xử lý) │◄───▶│ (Giao diện) │
-└─────────────┘ └─────────────┘ └─────────────┘
-▲ ▲ ▲
-│ │ │
-Database Nhận request HTML/Thymeleaf
-trả về response
-```
+![alt text](image-3.png)
 
 **Ví dụ đời thường:**
 
