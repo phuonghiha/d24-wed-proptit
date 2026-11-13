@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ ngày sinh bạn bè</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 15px;
+            font-family: Arial, sans-serif;
+            background: #f3f5fb;
+            color: #29324a;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px #00000010;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5965d8;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button, .edit-button {
+            padding: 11px 16px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .add-button {
+            background: #5965d8;
+        }
+
+        .edit-button {
+            background: #e5a52e;
+        }
+
+        .delete-button {
+            background: #e45454;
+        }
+
+        .friend {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 17px 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .friend-name {
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .birthday {
+            margin-top: 6px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .empty {
+            padding: 25px;
+            text-align: center;
+            color: #999;
+        }
+
+        @media (max-width: 550px) {
+            .friend {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>🎂 Birthday Manager</h1>
+    <p class="subtitle">Lưu giữ ngày sinh của những người bạn</p>
+
+    <!-- Form thêm bạn -->
+    <form class="form" th:action="@{/friends}" method="post">
+        <input
+                type="text"
+                name="name"
+                placeholder="Nhập tên bạn bè..."
+                maxlength="100"
+                required
+        >
+
+        <input
+                type="date"
+                name="birthday"
+                required
+        >
+
+        <button type="submit" class="add-button">
+            + Thêm bạn
+        </button>
+    </form>
+
+    <h3>Danh sách bạn bè</h3>
+
+    <div th:if="${#lists.isEmpty(friends)}" class="empty">
+        Chưa có người bạn nào được lưu.
+    </div>
+
+    <!-- Hiển thị danh sách -->
+    <div th:each="friend : ${friends}" class="friend">
+
+        <div>
+            <div class="friend-name"
+                 th:text="${friend.name}">
+                Nguyễn Văn A
+            </div>
+
+            <div class="birthday">
+                Ngày sinh:
+                <span th:text="${#temporals.format(friend.birthday, 'dd/MM/yyyy')}">
+                    15/03/2005
+                </span>
+            </div>
+        </div>
+
+        <div class="actions">
+
+            <a class="edit-button"
+               th:href="@{/friends/{id}/edit(id=${friend.id})}">
+                Sửa
+            </a>
+
+            <form
+                    th:action="@{/friends/{id}/delete(id=${friend.id})}"
+                    method="post"
+                    onsubmit="return confirm('Bạn có chắc muốn xóa người này?')">
+
+                <button type="submit" class="delete-button">
+                    Xóa
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
